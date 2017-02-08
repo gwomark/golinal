@@ -19,6 +19,9 @@ type ConstructorsTestSuite struct {
 	MatrixFromSlices2 Matrix 
 }
 
+//************************
+// END Constructor Test Suite
+//************************
 
 type GetEntryTestSuite struct {}
 
@@ -40,6 +43,11 @@ type AdditionTestSuite struct {
 
 }
 
+//********************************
+// END Addition of Matrices Test Suite
+//********************************
+
+type EqualsTestSuite struct{}
 
 // Initializes all matrices to be tested 
 // in the addition test sweet. 
@@ -63,6 +71,11 @@ func (suite *AdditionTestSuite) TestDifferentDimAddition() {
 	assert.NotEqual(suite.T(), nil, err) 
 }
 
+
+// The addition method uses pointers as receivers 
+// to avoid the inefficiency of copying the Matrix arguments
+// This tests to make sure that we don't modify the original
+// arguments when we add a matrix to itself
 func (suite *AdditionTestSuite) TestAddToItself() {
 	// Copy the matrix before we add it to itself
 	// Test this copy against the one that added to itself
@@ -75,9 +88,16 @@ func (suite *AdditionTestSuite) TestAddToItself() {
 	assert.Equal(suite.T(), suite.ResultAddToItself, sum)
 }
 
-type MultiplicationTestSuite struct{}
 
-type EqualsTestSuite struct{}
+
+//********************************
+// Multiplication of Matrices Test Suite
+//********************************
+
+type MultiplicationTestSuite struct{
+
+}
+
 
 
 type GetRowTestSuite struct {}
