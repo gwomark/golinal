@@ -5,7 +5,8 @@ All available functions are documented in https://github.com/gwomark/golinal/edi
 The project remains unfinished since several methods that use LUP decomposition remain broken. 
 
  To install the package run 
- `go get github.com/gwomark/golinal` \n
+ `go get github.com/gwomark/golinal` 
+ 
  `go get github.com/stretchr/testify/suite`
  Tests can be run usig `go test`
 
