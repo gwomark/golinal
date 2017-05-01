@@ -1,6 +1,11 @@
 
-This project is a Matrix data structure that provides the following functions:
+This project is a Matrix data structure. 
+All available functions are documented in https://github.com/gwomark/golinal/edit/master/page.html
 
-TODO: Fill stuff in here
+The project remains unfinished since several methods that use LUP decomposition remain broken. 
+
+
+
+
 
 
