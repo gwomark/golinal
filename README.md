@@ -9,6 +9,8 @@ The project remains unfinished since several methods that use LUP decomposition 
  `go get github.com/gwomark/golinal` 
  
  `go get github.com/stretchr/testify/suite`
+ 
+ 
  Tests can be run usig `go test`
 
 
