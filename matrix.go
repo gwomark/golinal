@@ -1,32 +1,31 @@
-package matrix
+package golinal
 
 import (
 	"errors";
 	"math";
 	"fmt";
-	"github.com/gonum/matrix/mat64";
+	"github.com/gonum/Matrix/mat64";
 )
 
 // Matrix Struct Definition
-
-type matrix struct {
+//
+type Matrix struct {
 	numRows, numCols int
 	elems [][]float64
 }
 
-
 // brief: Parameterized constructor that takes slice 
 // of slices of floats
 //
-// details: Allows us to create a matrix with only 
+// details: Allows us to create a Matrix with only 
 // providing slices and not specifying columns or rows
 //
 // note: It is on the user to make sure that all columns have 
-// the same length, otherwise the matrix will break
+// the same length, otherwise the Matrix will break
 //
-// returns: a pointer to a matrix
-func Matrix(slices... []float64) (*matrix) {
-	m := new(matrix)
+// returns: a pointer to a Matrix
+func NewMatrix(slices... []float64) (*Matrix) {
+	m := new(Matrix)
 	m.numRows = int(len(slices))
 	m.numCols = int(len(slices[0]))
 	m.elems = slices
@@ -34,20 +33,19 @@ func Matrix(slices... []float64) (*matrix) {
 	return m
 }
 
-
 // brief: Parameterized constructor that takes slice 
 // of slices of floats
 //
-// details: Allows us to create a matrix with only 
+// details: Allows us to create a Matrix with only 
 // providing slices and not specifying columns or rows
 //
 // note: It is on the user to make sure that all columns have 
-// the same length, otherwise the matrix will break
+// the same length, otherwise the Matrix will break
 //
-// returns: a pointer to a matrix
-func BlankMatrix(rows, cols int) (*matrix) {
+// returns: a pointer to a Matrix
+func BlankMatrix(rows, cols int) (*Matrix) {
 
-	m := new(matrix)
+	m := new(Matrix)
 	m.numRows = rows
 	m.numCols = cols
 
@@ -61,8 +59,10 @@ func BlankMatrix(rows, cols int) (*matrix) {
 	return m
 }
 
-
-func Identity(n int) (*matrix) {
+// brief: Creates an nxn identity matrix
+// 
+// returns: pointer to an matrix
+func Identity(n int) (*Matrix) {
 
 	m := BlankMatrix(n, n)
 	for i := 0; i < n; i++ {
@@ -73,45 +73,47 @@ func Identity(n int) (*matrix) {
 }
 
 
-func (m matrix) Dims() (int, int) {
+// brief: Gets the dimensions of a matrix
+// 
+// returns: the number of rows, the number of colmns
+func (m Matrix) Dims() (int, int) {
 	return m.numRows, m.numCols
 }
 
-
-// brief: Get the row,col'th entry of a matrix
+// brief: Get the row,col'th entry of a Matrix
 //
-// note: it is undefined behavior to use invalid indices with Get()
+// note: it is undefined behavior to use invalid indices with At()
 //
-// returns: number of cols
-func (m matrix) At(row, col int) (float64) {
+// returns: A_ij for a row i and a row j
+func (m Matrix) At(row, col int) (float64) {
 
 	return m.elems[row][col]
 }
 
 
-// brief: Gets number of rows in a matrix
+// brief: Gets number of rows in a Matrix
 //
 // returns: number of rows
-func (m matrix) NumRows() int {
+func (m Matrix) NumRows() int {
 	return m.numRows
 }
 
 
-// brief: Gets number of cols in a matrix
+// brief: Gets number of cols in a Matrix
 //
 // returns: number of cols
-func (m matrix) NumCols() int {
+func (m Matrix) NumCols() int {
 	return m.numCols
 }
 
 
 // brief: Adds two matrices together
 // 
-// inputs: a matrix pointer
+// inputs: a Matrix pointer
 //
 // returns: an error if dimensions of the 
 //          matrices to be summed aren't equal
-func (m *matrix) Add(q *matrix) error {
+func (m *Matrix) Add(q *Matrix) error {
 	if (m.numRows != q.numRows) || (m.numCols != q.numRows) {
 		return errors.New("Dimensions aren't equal")
 	} else {
@@ -126,10 +128,10 @@ func (m *matrix) Add(q *matrix) error {
 }
 
 
-// brief: Scales a matrix by a real number
+// brief: Scales a Matrix by a real number
 // 
 // inputs: A float 
-func (m *matrix) Scale(x float64) {
+func (m *Matrix) Scale(x float64) {
 	for i := 0; i < m.numRows; i++ {
 			for j := 0; j < m.numRows; j++ {
 				m.elems[i][j] *= x
@@ -138,12 +140,12 @@ func (m *matrix) Scale(x float64) {
 }
 
 
-// brief: Multiplys the matrix m by the matrix q
+// brief: Multiplys the Matrix m by the Matrix q
 //
 // details: O(n^3)
 // 
 // returns: product of m and q
-func (m matrix) Multiply(q *matrix) (*matrix, error) {
+func (m Matrix) Multiply(q *Matrix) (*Matrix, error) {
 
 	if (m.numCols != q.numRows) {
 		return nil,errors.New("Dimensions can't be multiplied")
@@ -152,22 +154,26 @@ func (m matrix) Multiply(q *matrix) (*matrix, error) {
 		for i := 0; i < m.numRows; i++ {
 			for j := 0; j < q.numCols; j++ {
 				for k := 0; k < q.numRows; k++ {
+					if i == 0 || j == 0 || k == 0 {
+						fmt.Println(result.elems[i][j])
+					}
 					result.elems[i][j] += m.elems[i][k] * q.elems[k][j]
 				}
 			}
 		}
 
+
 		return result, nil	
 	}
 }
 
-// brief: Calculates transpose of matrix, wrapper for T()
+// brief: Calculates transpose of Matrix, wrapper for T()
 //
-// details: Implemented for *matrix
+// details: Implemented for *Matrix
 // 
-// returns: a transposed version of m as a pointer to a matrix
+// returns: a transposed version of m as a pointer to a Matrix
 
-func(m *matrix) Transpose() *matrix {
+func(m *Matrix) Transpose() *Matrix {
 	transpose := BlankMatrix(m.numCols, m.numRows)
 
 	for i := 0; i < m.numCols; i++ {
@@ -182,13 +188,13 @@ func(m *matrix) Transpose() *matrix {
 }
 
 
-
-// brief: Calculates transpose of matrix
+// BROKEN DUE TO LUP DECOMP
+// brief: Calculates transpose of Matrix
 //
 // details: Implemented for mat64.Matrix interface
 // 
 // returns: a transposed version of m
-func(m *matrix) Inverse() (*matrix, error) {
+func(m *Matrix) Inverse() (*Matrix, error) {
 	if !m.IsSqaure(){
 		return nil, errors.New("Matrix is not square")
 	}
@@ -212,13 +218,13 @@ func(m *matrix) Inverse() (*matrix, error) {
 	return inverseT, nil
 }
 
-
-// brief: Calculates determinant of a matrix
+// BROKEN METHOD DUE TO LUP DECMOP
+// brief: Calculates determinant of a Matrix
 //
-// details: Uses LU decomposition, O(n^3)
+// details: Uses LU decomposition, O(n^3), 
 // 
 // returns: a determinant of m
-func (m *matrix) Determinant() (det float64, err error) {
+func (m *Matrix) Determinant() (det float64, err error) {
 	L, U, P, err := m.LUP()
 	if err != nil {
 		return 0.0, err
@@ -230,21 +236,21 @@ func (m *matrix) Determinant() (det float64, err error) {
 
 
 
-// brief: Calculates the LUP decomposition of a matrix
+// brief: Calculates the LUP decomposition of a Matrix
 //
 // details: Decomposes m in to the product of three matrices:
-//              P: A row permutation matrix
-//              U: An upper triangular matrix
-//              L: A lower triangular matrix
+//              P: A row permutation Matrix
+//              U: An upper triangular Matrix
+//              L: A lower triangular Matrix
 //          Hence Pm = LU,
 //          O(n^3)
 //
 // returns: a determinant of m
-func (m *matrix) LUP() (*matrix, *matrix, *matrix, error) {
+func (m *Matrix) LUP() (*Matrix, *Matrix, *Matrix, error) {
 	
-	// No LUP if matrix isn't square
+	// No LUP if Matrix isn't square
 	if !m.IsSqaure() {
-		return nil, nil, nil, errors.New("LUP requires square matrix")
+		return nil, nil, nil, errors.New("LUP requires square Matrix")
 	}
 
 	n := m.numRows
@@ -289,31 +295,18 @@ func (m *matrix) LUP() (*matrix, *matrix, *matrix, error) {
 }
 
 
-func (m *matrix) RREF() *matrix {
-	
-	// loop through each row
-	for i := 0; i < m.numRows; i++ {
-		
-		for j := 0; j < m.numCols; j++ {
-
-		}
-
-	}
-	return BlankMatrix(4, 4)
-
-}
 
 
-
+// BROKEN DUE TO LUP DECOMP
 // brief: Solves equations of the form
 //       Ax = b
-// where A is a matrix, and x,b are vectors
+// where A is a Matrix, and x,b are vectors
 //
 // inputs: b a slice of floats to solve for
 //
 // details: If A is square, LU decomposition is used
 //
-func (A *matrix) Gauss(b []float64) ([]float64, error) {
+func (A *Matrix) Gauss(b []float64) ([]float64, error) {
 	
 	
 	L, U, P, err := A.LUP()
@@ -326,11 +319,10 @@ func (A *matrix) Gauss(b []float64) ([]float64, error) {
 }
 
 
-// brief: Finds the eigenvalues of a square matrix m
-//      
+// brief: Finds the eigenvalues of a square Matrix m
 //
 // returns: a slice of complex numbers
-func (m *matrix) Eigenvalues() ([]complex128, error) {
+func (m *Matrix) Eigenvalues() ([]complex128, error) {
 	if m.IsSqaure() == false {
 		err := errors.New("Matrix should be square")
 		return nil, err
@@ -351,22 +343,23 @@ func (m *matrix) Eigenvalues() ([]complex128, error) {
 ///////////////////////////////
 
 
-func (m *matrix) IsSqaure() bool {
+
+func (m *Matrix) IsSqaure() bool {
 	return (m.numRows == m.numCols)
 }
 
 
 
-// brief: Calculates transpose of matrix
+// brief: Calculates transpose of Matrix
 //
 // details: Implemented for mat64.Matrix interface
 // 
 // returns: a transposed version of m
-func (m matrix) pivotMatrix() *matrix { 
+func (m Matrix) pivotMatrix() *Matrix { 
 
 	dim := m.numRows
 
-	// Permutation matrix to return
+	// Permutation Matrix to return
 	P := Identity(dim)
 	
 	// For each column, find the row below the diagonal
@@ -395,7 +388,7 @@ func (m matrix) pivotMatrix() *matrix {
 }
 
 
-func permDeterminant(m *matrix) float64 {
+func permDeterminant(m *Matrix) float64 {
 	numberOfSwitches := 0.0
 	
 	for i := 0; i < m.numRows; i++ {
@@ -408,7 +401,7 @@ func permDeterminant(m *matrix) float64 {
 }
 
 
-func determinant(L, U, P matrix) (float64, error) {
+func determinant(L, U, P Matrix) (float64, error) {
 	n := L.numRows
 	
 	// det(m) = det(L)det(P^-1)det(U)
@@ -430,10 +423,10 @@ func determinant(L, U, P matrix) (float64, error) {
 }
 
 
-func gauss(b []float64, L *matrix, U *matrix, P *matrix) ([]float64, error) {
+func gauss(b []float64, L *Matrix, U *Matrix, P *Matrix) ([]float64, error) {
 	
 	// Multiply P 
-	Pb, err := P.Multiply(Matrix(b).Transpose())
+	Pb, err := P.Multiply(NewMatrix(b).Transpose())
 
 	
 	if err != nil {
@@ -489,12 +482,12 @@ func Max(s []float64) (float64, int) {
 	return currentMax, index
 }
 
-// brief: Calculates transpose of matrix
+// brief: Calculates transpose of Matrix
 //
 // details: Implemented for mat64.Matrix interface
 // 
 // returns: a transposed version of m
-func (m matrix) T() mat64.Matrix {
+func (m Matrix) T() mat64.Matrix {
 	transpose := m.Transpose()
 
 

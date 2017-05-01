@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>golinal - The Go Programming Language</title>
+
+<link type="text/css" rel="stylesheet" href="/lib/godoc/style.css">
+
+<link rel="stylesheet" href="/lib/godoc/jquery.treeview.css">
+<script type="text/javascript">window.initFuncs = [];</script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/">The Go Programming Language</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/">Go</a></div>
+<a href="#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="/search">
+<div id="menu">
+<a href="/doc/">Documents</a>
+<a href="/pkg/">Packages</a>
+<a href="/project/">The Project</a>
+<a href="/help/">Help</a>
+<a href="/blog/">Blog</a>
+
+<input type="text" id="search" name="q" class="inactive" value="Search" placeholder="Search">
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>Package golinal</h1>
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/gwomark/golinal"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+			</div>
+		</div>
+		
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+				
+				<dd><a href="#Max">func Max(s []float64) (float64, int)</a></dd>
+			
+			
+				
+				<dd><a href="#Matrix">type Matrix</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#BlankMatrix">func BlankMatrix(rows, cols int) *Matrix</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Identity">func Identity(n int) *Matrix</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewMatrix">func NewMatrix(slices ...[]float64) *Matrix</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.Add">func (m *Matrix) Add(q *Matrix) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.At">func (m Matrix) At(row, col int) float64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.Determinant">func (m *Matrix) Determinant() (det float64, err error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.Dims">func (m Matrix) Dims() (int, int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.Eigenvalues">func (m *Matrix) Eigenvalues() ([]complex128, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.Gauss">func (A *Matrix) Gauss(b []float64) ([]float64, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.Inverse">func (m *Matrix) Inverse() (*Matrix, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.IsSqaure">func (m *Matrix) IsSqaure() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.LUP">func (m *Matrix) LUP() (*Matrix, *Matrix, *Matrix, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.Multiply">func (m Matrix) Multiply(q *Matrix) (*Matrix, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.NumCols">func (m Matrix) NumCols() int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.NumRows">func (m Matrix) NumRows() int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.Scale">func (m *Matrix) Scale(x float64)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.T">func (m Matrix) T() mat64.Matrix</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrix.Transpose">func (m *Matrix) Transpose() *Matrix</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h4>Package files</h4>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="/src/github.com/gwomark/golinal/matrix.go">matrix.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		<div id="pkg-callgraph" class="toggle" style="display: none">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+		</div> <!-- .expanded -->
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+			<p>
+			  In the call graph viewer below, each node
+			  is a function belonging to this package
+			  and its children are the functions it
+			  calls&mdash;perhaps dynamically.
+			</p>
+			<p>
+			  The root nodes are the entry points of the
+			  package: functions that may be called from
+			  outside the package.
+			  There may be non-exported or anonymous
+			  functions among them if they are called
+			  dynamically from another package.
+			</p>
+			<p>
+			  Click a node to visit that function's source code.
+			  From there you can visit its callers by
+			  clicking its declaring <code>func</code>
+			  token.
+			</p>
+			<p>
+			  Functions may be omitted if they were
+			  determined to be unreachable in the
+			  particular programs or tests that were
+			  analyzed.
+			</p>
+			<!-- Zero means show all package entry points. -->
+			<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+		</div>
+		</div> <!-- #pkg-callgraph -->
+
+		
+		
+		
+			
+			
+			<h2 id="Max">func <a href="/src/github.com/gwomark/golinal/matrix.go?s=9290:9326#L460">Max</a>
+				<a class="permalink" href="#Max">&#xb6;</a>
+			</h2>
+			<pre>func Max(s []<a href="/pkg/builtin/#float64">float64</a>) (<a href="/pkg/builtin/#float64">float64</a>, <a href="/pkg/builtin/#int">int</a>)</pre>
+			<p>
+brief: Finds the max entry in a
+</p>
+<pre>slice of floats and it index
+</pre>
+<p>
+returns: the max value in the slice and its index
+</p>
+
+			
+			
+
+		
+		
+			
+			
+			<h2 id="Matrix">type <a href="/src/github.com/gwomark/golinal/matrix.go?s=122:185#L2">Matrix</a>
+				<a class="permalink" href="#Matrix">&#xb6;</a>
+			</h2>
+			<pre>type Matrix struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}</pre>
+			<p>
+Matrix Struct Definition
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="BlankMatrix">func <a href="/src/github.com/gwomark/golinal/matrix.go?s=1032:1074#L36">BlankMatrix</a>
+					<a class="permalink" href="#BlankMatrix">&#xb6;</a>
+				</h3>
+				<pre>func BlankMatrix(rows, cols <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrix">Matrix</a></pre>
+				<p>
+brief: Parameterized constructor that takes slice
+of slices of floats
+</p>
+<p>
+details: Allows us to create a Matrix with only
+providing slices and not specifying columns or rows
+</p>
+<p>
+note: It is on the user to make sure that all columns have
+the same length, otherwise the Matrix will break
+</p>
+<p>
+returns: a pointer to a Matrix
+</p>
+
+				
+				
+			
+				
+				<h3 id="Identity">func <a href="/src/github.com/gwomark/golinal/matrix.go?s=1372:1402#L55">Identity</a>
+					<a class="permalink" href="#Identity">&#xb6;</a>
+				</h3>
+				<pre>func Identity(n <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrix">Matrix</a></pre>
+				<p>
+brief: Creates an nxn identity matrix
+</p>
+<p>
+returns: pointer to an matrix
+</p>
+
+				
+				
+			
+				
+				<h3 id="NewMatrix">func <a href="/src/github.com/gwomark/golinal/matrix.go?s=529:574#L17">NewMatrix</a>
+					<a class="permalink" href="#NewMatrix">&#xb6;</a>
+				</h3>
+				<pre>func NewMatrix(slices ...[]<a href="/pkg/builtin/#float64">float64</a>) *<a href="#Matrix">Matrix</a></pre>
+				<p>
+brief: Parameterized constructor that takes slice
+of slices of floats
+</p>
+<p>
+details: Allows us to create a Matrix with only
+providing slices and not specifying columns or rows
+</p>
+<p>
+note: It is on the user to make sure that all columns have
+the same length, otherwise the Matrix will break
+</p>
+<p>
+returns: a pointer to a Matrix
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Matrix.Add">func (*Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=2312:2349#L106">Add</a>
+					<a class="permalink" href="#Matrix.Add">&#xb6;</a>
+				</h3>
+				<pre>func (m *<a href="#Matrix">Matrix</a>) Add(q *<a href="#Matrix">Matrix</a>) <a href="/pkg/builtin/#error">error</a></pre>
+				<p>
+brief: Adds two matrices together
+</p>
+<p>
+inputs: a Matrix pointer
+</p>
+<p>
+returns: an error if dimensions of the
+</p>
+<pre>matrices to be summed aren&#39;t equal
+</pre>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.At">func (Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=1822:1864#L78">At</a>
+					<a class="permalink" href="#Matrix.At">&#xb6;</a>
+				</h3>
+				<pre>func (m <a href="#Matrix">Matrix</a>) At(row, col <a href="/pkg/builtin/#int">int</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+				<p>
+brief: Get the row,col&#39;th entry of a Matrix
+</p>
+<p>
+note: it is undefined behavior to use invalid indices with At()
+</p>
+<p>
+returns: A_ij for a row i and a row j
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.Determinant">func (*Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=4660:4715#L217">Determinant</a>
+					<a class="permalink" href="#Matrix.Determinant">&#xb6;</a>
+				</h3>
+				<pre>func (m *<a href="#Matrix">Matrix</a>) Determinant() (det <a href="/pkg/builtin/#float64">float64</a>, err <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+BROKEN METHOD DUE TO LUP DECMOP
+brief: Calculates determinant of a Matrix
+</p>
+<p>
+details: Uses LU decomposition, O(n^3),
+</p>
+<p>
+returns: a determinant of m
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.Dims">func (Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=1593:1626#L69">Dims</a>
+					<a class="permalink" href="#Matrix.Dims">&#xb6;</a>
+				</h3>
+				<pre>func (m <a href="#Matrix">Matrix</a>) Dims() (<a href="/pkg/builtin/#int">int</a>, <a href="/pkg/builtin/#int">int</a>)</pre>
+				<p>
+brief: Gets the dimensions of a matrix
+</p>
+<p>
+returns: the number of rows, the number of colmns
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.Eigenvalues">func (*Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=6643:6695#L315">Eigenvalues</a>
+					<a class="permalink" href="#Matrix.Eigenvalues">&#xb6;</a>
+				</h3>
+				<pre>func (m *<a href="#Matrix">Matrix</a>) Eigenvalues() ([]<a href="/pkg/builtin/#complex128">complex128</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+brief: Finds the eigenvalues of a square Matrix m
+</p>
+<p>
+returns: a slice of complex numbers
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.Gauss">func (*Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=6392:6446#L299">Gauss</a>
+					<a class="permalink" href="#Matrix.Gauss">&#xb6;</a>
+				</h3>
+				<pre>func (A *<a href="#Matrix">Matrix</a>) Gauss(b []<a href="/pkg/builtin/#float64">float64</a>) ([]<a href="/pkg/builtin/#float64">float64</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+BROKEN DUE TO LUP DECOMP
+brief: Solves equations of the form
+</p>
+<pre>Ax = b
+</pre>
+<p>
+where A is a Matrix, and x,b are vectors
+</p>
+<p>
+inputs: b a slice of floats to solve for
+</p>
+<p>
+details: If A is square, LU decomposition is used
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.Inverse">func (*Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=4081:4123#L187">Inverse</a>
+					<a class="permalink" href="#Matrix.Inverse">&#xb6;</a>
+				</h3>
+				<pre>func (m *<a href="#Matrix">Matrix</a>) Inverse() (*<a href="#Matrix">Matrix</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+BROKEN DUE TO LUP DECOMP
+brief: Calculates transpose of Matrix
+</p>
+<p>
+details: Implemented for mat64.Matrix interface
+</p>
+<p>
+returns: a transposed version of m
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.IsSqaure">func (*Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=7079:7111#L337">IsSqaure</a>
+					<a class="permalink" href="#Matrix.IsSqaure">&#xb6;</a>
+				</h3>
+				<pre>func (m *<a href="#Matrix">Matrix</a>) IsSqaure() <a href="/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Matrix.LUP">func (*Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=5166:5223#L239">LUP</a>
+					<a class="permalink" href="#Matrix.LUP">&#xb6;</a>
+				</h3>
+				<pre>func (m *<a href="#Matrix">Matrix</a>) LUP() (*<a href="#Matrix">Matrix</a>, *<a href="#Matrix">Matrix</a>, *<a href="#Matrix">Matrix</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+brief: Calculates the LUP decomposition of a Matrix
+</p>
+<p>
+details: Decomposes m in to the product of three matrices:
+</p>
+<pre>    P: A row permutation Matrix
+    U: An upper triangular Matrix
+    L: A lower triangular Matrix
+Hence Pm = LU,
+O(n^3)
+</pre>
+<p>
+returns: a determinant of m
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.Multiply">func (Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=2975:3027#L138">Multiply</a>
+					<a class="permalink" href="#Matrix.Multiply">&#xb6;</a>
+				</h3>
+				<pre>func (m <a href="#Matrix">Matrix</a>) Multiply(q *<a href="#Matrix">Matrix</a>) (*<a href="#Matrix">Matrix</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+brief: Multiplys the Matrix m by the Matrix q
+</p>
+<p>
+details: O(n^3)
+</p>
+<p>
+returns: product of m and q
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.NumCols">func (Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=2096:2125#L95">NumCols</a>
+					<a class="permalink" href="#Matrix.NumCols">&#xb6;</a>
+				</h3>
+				<pre>func (m <a href="#Matrix">Matrix</a>) NumCols() <a href="/pkg/builtin/#int">int</a></pre>
+				<p>
+brief: Gets number of cols in a Matrix
+</p>
+<p>
+returns: number of cols
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.NumRows">func (Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=1970:1999#L87">NumRows</a>
+					<a class="permalink" href="#Matrix.NumRows">&#xb6;</a>
+				</h3>
+				<pre>func (m <a href="#Matrix">Matrix</a>) NumRows() <a href="/pkg/builtin/#int">int</a></pre>
+				<p>
+brief: Gets number of rows in a Matrix
+</p>
+<p>
+returns: number of rows
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.Scale">func (*Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=2726:2759#L124">Scale</a>
+					<a class="permalink" href="#Matrix.Scale">&#xb6;</a>
+				</h3>
+				<pre>func (m *<a href="#Matrix">Matrix</a>) Scale(x <a href="/pkg/builtin/#float64">float64</a>)</pre>
+				<p>
+brief: Scales a Matrix by a real number
+</p>
+<p>
+inputs: A float
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.T">func (Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=9634:9666#L480">T</a>
+					<a class="permalink" href="#Matrix.T">&#xb6;</a>
+				</h3>
+				<pre>func (m <a href="#Matrix">Matrix</a>) T() <a href="/pkg/github.com/gonum/Matrix/mat64/">mat64</a>.<a href="/pkg/github.com/gonum/Matrix/mat64/#Matrix">Matrix</a></pre>
+				<p>
+brief: Calculates transpose of Matrix
+</p>
+<p>
+details: Implemented for mat64.Matrix interface
+</p>
+<p>
+returns: a transposed version of m
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrix.Transpose">func (*Matrix) <a href="/src/github.com/gwomark/golinal/matrix.go?s=3633:3668#L166">Transpose</a>
+					<a class="permalink" href="#Matrix.Transpose">&#xb6;</a>
+				</h3>
+				<pre>func (m *<a href="#Matrix">Matrix</a>) Transpose() *<a href="#Matrix">Matrix</a></pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.7.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/LICENSE">BSD license</a>.<br>
+<a href="/doc/tos.html">Terms of Service</a> | 
+<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+<!-- TODO(adonovan): load these from <head> using "defer" attribute? -->
+<script type="text/javascript" src="/lib/godoc/jquery.js"></script>
+<script type="text/javascript" src="/lib/godoc/jquery.treeview.js"></script>
+<script type="text/javascript" src="/lib/godoc/jquery.treeview.edit.js"></script>
+
+
+<script>var goVersion = "go1.7.4";</script>
+<script type="text/javascript" src="/lib/godoc/godocs.js"></script>
+
+</body>
+</html>
+

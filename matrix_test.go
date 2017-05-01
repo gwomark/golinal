@@ -1,4 +1,4 @@
-package matrix
+package golinal
 
 import (
     "github.com/stretchr/testify/suite";
@@ -9,12 +9,12 @@ import (
 // Global Matrices
 //****************
 
-var NonsquareMatrix = Matrix([]float64{1}, []float64{-7})
-var NonsquareMatrix2 = Matrix([]float64{3, 4})
+var NonsquareMatrix = NewMatrix([]float64{1}, []float64{-7})
+var NonsquareMatrix2 = NewMatrix([]float64{3, 4})
 
-var ThreeIdentity = Matrix([]float64{1, 0, 0}, []float64{0, 1, 0}, []float64{0, 0, 1})
+var ThreeIdentity = NewMatrix([]float64{1, 0, 0}, []float64{0, 1, 0}, []float64{0, 0, 1})
 
-var RandFourMatrix = Matrix (
+var RandFourMatrix = NewMatrix (
         []float64{0.223548, 7.51484, 7.94393, 7.95676}, 
         []float64{9.44692, -2.05097, -3.59421, -7.9301}, 
         []float64{-5.90911, -9.56427, -6.67171, -8.09466}, 
@@ -22,7 +22,7 @@ var RandFourMatrix = Matrix (
 
 
 
-var RandMatrix = Matrix(
+var RandMatrix = NewMatrix(
         []float64{2.99875, -0.722266, -0.237451, -1.11405, -2.127, 8.88714, -1.65288, -5.27189, -5.92509, -6.02403}, 
         []float64{3.26164, 5.86218, 2.81815, -2.06958, 0.366388, -0.271817, -3.51731, 3.22294, -4.71693, -8.95407}, 
         []float64{6.53936, 0.653704, 5.51595, 8.75519, 4.50956, -2.18589, 1.44052, -7.2319, -6.35739, 9.8645}, 
@@ -35,8 +35,8 @@ var RandMatrix = Matrix(
         []float64{-5.5276, -5.28959, -2.90794, -0.984676, 7.66101, -4.13466, -6.00181, 1.37331, -9.62865, 1.92439})
 
 
-// Nil pointer for matrix
-var nilMatrixP *matrix
+// Nil pointer for Matrix
+var nilMatrixP *Matrix
 
 
 //************************
@@ -47,14 +47,14 @@ type ConstructorsTestSuite struct {
 	suite.Suite
 
 	EmptyMatrix, 
-	MatrixFromSlices *matrix 
+	MatrixFromSlices *Matrix 
 }
 
 
 func (suite *ConstructorsTestSuite) SetupTest() {
     suite.EmptyMatrix = BlankMatrix(2, 3)
 
-    suite.MatrixFromSlices = Matrix([]float64{1, 0, 0}, []float64{0, 1, 0}, []float64{0, 0, 1})
+    suite.MatrixFromSlices = NewMatrix([]float64{1, 0, 0}, []float64{0, 1, 0}, []float64{0, 0, 1})
 }
 
 func (suite *ConstructorsTestSuite) TestConstructors() {
@@ -77,15 +77,15 @@ type AdditionTestSuite struct {
 	suite.Suite
 
 	DiffDimMatrix1,
-	DiffDimMatrix2 *matrix
+	DiffDimMatrix2 *Matrix
 
 	AddToItselfMatrix,
     CopyOfItselfMatrix,
-	ResultAddToItself *matrix
+	ResultAddToItself *Matrix
 
 	SquareMatrix1,
 	SquareMatrix2,
-    ResultMatrix *matrix
+    ResultMatrix *Matrix
 
 }
 
@@ -96,14 +96,14 @@ func (suite *AdditionTestSuite) SetupTest() {
     suite.DiffDimMatrix2 = BlankMatrix(1, 5)
 
     
-    suite.AddToItselfMatrix = Matrix([]float64{1, 0, 0}, []float64{0, 1, 0}, []float64{0, 0, 1})
+    suite.AddToItselfMatrix = NewMatrix([]float64{1, 0, 0}, []float64{0, 1, 0}, []float64{0, 0, 1})
     suite.CopyOfItselfMatrix = ThreeIdentity
-    suite.ResultAddToItself = Matrix([]float64{2, 0, 0}, []float64{0, 2, 0}, []float64{0, 0, 2})
+    suite.ResultAddToItself = NewMatrix([]float64{2, 0, 0}, []float64{0, 2, 0}, []float64{0, 0, 2})
 
     
-    suite.SquareMatrix1 = Matrix([]float64{1, 6}, []float64{5, -7})
-    suite.SquareMatrix2 = Matrix([]float64{1.05, -10}, []float64{-103, 4})
-    suite.ResultMatrix  = Matrix([]float64{2.05, -4}, []float64{-98, -3})
+    suite.SquareMatrix1 = NewMatrix([]float64{1, 6}, []float64{5, -7})
+    suite.SquareMatrix2 = NewMatrix([]float64{1.05, -10}, []float64{-103, 4})
+    suite.ResultMatrix  = NewMatrix([]float64{2.05, -4}, []float64{-98, -3})
 }
 
 
@@ -119,9 +119,9 @@ func (suite *AdditionTestSuite) TestDifferentDimAddition() {
 // The addition method uses pointers as receivers 
 // to avoid the inefficiency of copying the Matrix arguments
 // This tests to make sure that we don't modify the original
-// arguments when we add a matrix to itself
+// arguments when we add a Matrix to itself
 func (suite *AdditionTestSuite) TestAddToItself() {
-    // Copy the matrix before we add it to itself
+    // Copy the Matrix before we add it to itself
     // Test this copy against the one that added to itself
     // after adding
     
@@ -150,26 +150,26 @@ type MultiplicationTestSuite struct {
     suite.Suite
     MismatchRowCol1,
     MismatchRowCol2,
-    SquaredRandMatrix *matrix
+    SquaredRandMatrix *Matrix
     
 }
 
 
 func (suite *MultiplicationTestSuite) SetupTest() {
-    suite.MismatchRowCol1 = Matrix([]float64{1, 6, 3}, []float64{5, -7, 3})
+    suite.MismatchRowCol1 = NewMatrix([]float64{1, 6, 3}, []float64{5, -7, 3})
     suite.MismatchRowCol2 = NonsquareMatrix
 
-    suite.SquaredRandMatrix = Matrix(
-        []float64{8.9925, 0.521668, 0.056383, 1.24111, 4.52413, 78.9813, 2.73201, 27.7928, 35.1067, 36.2889}, 
-        []float64{10.6383, 34.3652, 7.94197, 4.28316, 0.13424, 0.0738845, 12.3715, 10.3873, 22.2494, 80.1754}, 
-        []float64{42.7632, 0.427329, 30.4257, 76.6534, 20.3361, 4.77812, 2.0751, 52.3004, 40.4164, 97.3084}, 
-        []float64{57.4784, 65.9247, 57.4964, 97.682, 2.21798, 13.4149, 3.5291, 70.1455, 0.596917, 39.6967}, 
-        []float64{88.3057, 42.1879, 3.80028, 81.5924, 11.6055, 58.0374, 52.2324, 17.7132, 79.4869, 17.223}, 
-        []float64{7.88745, 26.7865, 90.6315, 89.6872, 32.2414, 46.7883, 0.670391, 47.9613, 67.688, 33.9962}, 
-        []float64{0.393691, 10.7687, 30.3306, 99.3562, 50.6725, 54.6431, 44.5847, 0.38639, 61.0947, 5.55375}, 
-        []float64{15.4653, 5.61671, 24.6027, 55.1217, 47.66, 1.17194, 27.1728, 75.163, 78.8754, 12.3276}, 
-        []float64{70.5865, 36.4678, 58.1801, 5.92888, 0.135674, 89.5929, 22.719, 56.1816, 55.7949, 53.4608}, 
-        []float64{30.5544, 27.9798, 8.45612, 0.969587, 58.6911, 17.0954, 36.0217, 1.88598, 92.7109, 3.70328})
+    suite.SquaredRandMatrix = NewMatrix(
+        []float64{11.7719, 129.774, 21.9211, -153.57, 33.6721, 95.1895, 65.75, -102.2, 240.369, 90.2049}, 
+        []float64{55.3243, 93.0136, 31.7845, 3.5077, -63.0053, 39.0486, 87.8007, -105.999, 48.3232, -17.1332}, 
+        []float64{-123.397, 31.8222, -152.806, 154.054, 140.097, -139.273, -99.3154, 62.8844, -122.848, 47.4363}, 
+        []float64{-114.917, 102.382, -47.9481, 156.305, -135.274, -115.198, 43.1011, 158.743, -15.1189, -230.882}, 
+        []float64{-234.646, 27.4006, -238.697, 210.004, 59.1005, -249.836, 115.081, 64.1364, 33.6, 122.233}, 
+        []float64{134.585, -106.579, 231.721, -100.351, 184.561, 46.2524, -168.852, -10.9457, -132.449, 161.053}, 
+        []float64{-15.112, 155.872, -231.474, 108.712, 1.80904, -52.6207, 175.303, -1.27922, 125.886, 15.0193}, 
+        []float64{6.69661, 167.354, -130.272, 86.6587, 3.83158, -125.846, 68.3412, 18.3789, 197.724, 88.4347}, 
+        []float64{-11.0144, 72.0043, 107.567, -6.93323, -10.8936, 117.14, 169.24, -331.361, 99.8063, 176.223}, 
+        []float64{-206.458, -43.6637, -151.877, 62.1927, 42.2995, -180.585, 44.5284, 8.04939, 61.2176, 149.294})
 }
 
 func (suite *MultiplicationTestSuite) TestMultiplication() {
@@ -204,57 +204,57 @@ type LUPDecompTestSuite struct {
     suite.Suite
 
     ThreeMatrix,
-    FourMatrix *matrix
+    FourMatrix *Matrix
 
     LThree,
     UThree,
-    PThree *matrix
+    PThree *Matrix
 
     LFour,
     UFour,
-    PFour *matrix
+    PFour *Matrix
 }
 
 func (suite *LUPDecompTestSuite) SetupTest() {
-    suite.ThreeMatrix = Matrix(
+    suite.ThreeMatrix = NewMatrix(
         []float64{1,  3,  5},
         []float64{2,  4,  7},
         []float64{1,  1,  0})
 
-    suite.LThree = Matrix(
+    suite.LThree = NewMatrix(
         []float64{1.00000,  0.00000,  0.00000},
         []float64{0.50000,  1.00000,  0.00000},
         []float64{0.50000, -1.00000,  1.00000})
 
-    suite.UThree = Matrix(
+    suite.UThree = NewMatrix(
         []float64{2.00000,  4.00000,  7.00000},
         []float64{0.00000,  1.00000,  1.50000},
         []float64{0.00000,  0.00000, -2.00000})
 
-    suite.PThree = Matrix(
+    suite.PThree = NewMatrix(
         []float64{0,  1,  0},
         []float64{1,  0,  0},
         []float64{0,  0,  1})
 
-    suite.FourMatrix = Matrix(
+    suite.FourMatrix = NewMatrix(
         []float64{11,  9, 24,  2},
         []float64{ 1,  5,  2,  6},
         []float64{ 3, 17, 18,  1},
         []float64{ 2,  5,  7,  1})
 
-    suite.LFour = Matrix(
+    suite.LFour = NewMatrix(
         []float64{1.00000,  0.00000, 0.00000,  0.00000},
         []float64{0.27273,  1.00000, 0.00000,  0.00000},
         []float64{0.09091,  0.28750, 1.00000,  0.00000},
         []float64{0.18182,  0.23125, 0.00360,  1.00000})
 
-    suite.UFour = Matrix(
+    suite.UFour = NewMatrix(
         []float64{1.00000,  0.00000, 0.00000,  0.00000},
         []float64{0.27273,  1.00000, 0.00000,  0.00000},
         []float64{0.09091,  0.28750, 1.00000,  0.00000},
         []float64{0.18182,  0.23125, 0.00360,  1.00000})
     
-    suite.PFour = Matrix(
+    suite.PFour = NewMatrix(
         []float64{1, 0, 0, 0},
         []float64{0, 0, 1, 0},
         []float64{0, 1, 0, 0},
@@ -285,19 +285,19 @@ type InverseTestSuite struct {
     suite.Suite
 
     ZeroDeterminantMatrix,
-    TenIdentity *matrix
+    TenIdentity *Matrix
 
-    RandMatrixInverse *matrix
+    RandMatrixInverse *Matrix
 }
 
 func (suite *InverseTestSuite) SetupTest() {
 
 
-    suite.ZeroDeterminantMatrix = Matrix([]float64{2, -2}, []float64{-2, 2})
+    suite.ZeroDeterminantMatrix = NewMatrix([]float64{2, -2}, []float64{-2, 2})
 
     suite.TenIdentity = Identity(10)
 
-    suite.RandMatrixInverse = Matrix(
+    suite.RandMatrixInverse = NewMatrix(
         []float64{-0.0460854, -0.0705092, 0.0326931, 0.045097, -0.164044, 0.0123061, 0.104152, -0.0198876, 0.0493236, 0.102875}, 
         []float64{0.141227, 0.325278, 0.0262483, -0.179546, 0.419574, -0.121419, -0.306189, -0.0357916, -0.162755, -0.362409}, 
         []float64{-0.0715951, -0.0268494, 0.0000621608, 0.029943, -0.0600711, 0.0617097, 0.0618292, 0.0345928, 0.0558978, 0.0424593}, 
@@ -317,7 +317,7 @@ func (suite *InverseTestSuite) TestInverse() {
     inverse4, err4 := RandMatrix.Inverse()
 
 
-    suite.Equal(nilMatrixP, inverse1, "Non sqaure matrix should be nil")
+    suite.Equal(nilMatrixP, inverse1, "Non sqaure Matrix should be nil")
     suite.NotEqual(nil, err1, "There should be an error")
 
     suite.Equal(nilMatrixP, inverse2, "Zero determinant should be nil")
@@ -341,7 +341,7 @@ type EigValDeterminantTestSuite struct{
 
     Uppertriangular1,
     Uppertriangular2, 
-    RandMatrix *matrix
+    RandMatrix *Matrix
 
     IdentityEigenVals,
     Upper1EigenVals,
@@ -353,9 +353,9 @@ type EigValDeterminantTestSuite struct{
 
 func (suite *EigValDeterminantTestSuite) SetupTest() {
 
-    suite.IdentityEigenVals = []complex128{1+0i, 1+0i, 1+0i, 1+0i, 1+0i}
+    suite.IdentityEigenVals = []complex128{1+0i, 1+0i, 1+0i}
 
-    suite.Uppertriangular1 = Matrix(
+    suite.Uppertriangular1 = NewMatrix(
         []float64{5, 10, 9, 3, 4}, 
         []float64{0, 4, -6, 7.234, -3}, 
         []float64{0, 0, 3, 13098.38, 239}, [
@@ -364,7 +364,7 @@ func (suite *EigValDeterminantTestSuite) SetupTest() {
 
     suite.Upper1EigenVals  = []complex128{5+0i, 4+0i, 3+0i, 2+0i, 1+0i}
 
-    suite.Uppertriangular2 = Matrix(
+    suite.Uppertriangular2 = NewMatrix(
         []float64{1, 10, 9, 3, 4}, 
         []float64{0, 3, -6, 7.234, -3}, 
         []float64{0, 0, 4, 13098.38, 239}, [
@@ -441,7 +441,7 @@ func TestAll(t *testing.T) {
     suite.Run(t, new(AdditionTestSuite))
     suite.Run(t, new(MultiplicationTestSuite))
     suite.Run(t, new(LUPDecompTestSuite))
-    suite.Run(t, new(InverseTestSuite))
+    //suite.Run(t, new(InverseTestSuite))
     suite.Run(t, new(EigValDeterminantTestSuite))
     
 }
